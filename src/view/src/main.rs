@@ -45,6 +45,14 @@ fn parse(args: Args) -> View {
                     .expect("Unable parse into usize"),
             )
         }
+
+        if arg == &r#"-l"# {
+            view.limit = Some(
+                args[idx + 1]
+                    .parse::<usize>()
+                    .expect("Unable parse into usize"),
+            )
+        }
     }
 
     view
