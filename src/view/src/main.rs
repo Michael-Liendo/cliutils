@@ -24,7 +24,9 @@ fn parse(args: Args) -> View {
         limit: None,
     };
 
-    for (idx, arg) in args.enumerate() {
+    let args: Vec<String> = args.collect();
+
+    for (idx, arg) in args.iter().enumerate() {
         if idx == 0 {
             // Path to the current executable is skipped
             continue;
@@ -34,6 +36,14 @@ fn parse(args: Args) -> View {
             // This must be the path to the file to read
             let path = PathBuf::from_str(&arg).unwrap();
             view.path = path;
+        }
+
+        if arg == &r#"-o"# {
+            view.offset = Some(
+                args[idx + 1]
+                    .parse::<usize>()
+                    .expect("Unable parse into usize"),
+            )
         }
     }
 
